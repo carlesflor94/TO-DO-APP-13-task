@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 
-const Task = ({ task, changeState }) => {
+const Task = ({ task, changeState, handleDelete }) => {
 
     const stringDate = format(task.time, 'PPpp')
 
@@ -17,7 +17,7 @@ const Task = ({ task, changeState }) => {
                 <span className="created">created {stringDate}</span>
               </label>
               <button className="icon icon-edit"></button>
-              <button className="icon icon-destroy"></button>
+              <button className="icon icon-destroy" onClick={() => handleDelete(task.id)}></button>
             </div>
           </li>
     );
