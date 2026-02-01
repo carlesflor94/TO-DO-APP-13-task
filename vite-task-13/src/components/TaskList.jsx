@@ -4,7 +4,7 @@ const TaskList = ({ tasks }) => {
     return (
         <ul className="todo-list">
           {tasks.map((task, index) => (
-                <Task key={index} task={task}/>
+                <Task key={task.id} task={task}/>
             ))}
         </ul>
     );
