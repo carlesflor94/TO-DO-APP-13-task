@@ -25,12 +25,20 @@ function App() {
     setTasks(newTasks);
   }
 
+  //edit task
+  function editTaskDescription(id, newDescription) {
+    const newTasks = [...tasks]
+    const task = newTasks.find(task => task.id === id)
+    task.description = newDescription
+    setTasks(newTasks)
+  }
+
   return (
     <section className="todoapp">
       <NewTaskForm />
 
       <section className="main">
-        <TaskList tasks={tasks} changeState={changeState} handleDelete={handleDelete}/>
+        <TaskList tasks={tasks} changeState={changeState} handleDelete={handleDelete} editTaskDescription={editTaskDescription}/>
         <Footer />
       </section>
     </section>
