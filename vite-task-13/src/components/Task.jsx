@@ -24,18 +24,17 @@ const Task = ({ task, changeState, handleDelete, editTaskDescription }) => {
     }
 
     return (
-        <li className={task.complete ? 'completed' : ''}>
+        <li className={
+          (task.complete ? 'completed' : '') +
+          (editing ? 'editing' : '')
+          }>
             <div className="view">
               <input className="toggle" type="checkbox" checked={task.complete} onChange={handleTaskClick}/>
-              {!editing ? (
+              
                 <label>
                   <span className="description">{task.description}</span>
                   <span className="created">created {stringDate}</span>
-              </label>
-              ) : (
-                <input className="edit" value={editedTask} autoFocus onChange={handleEdit} onKeyDown={changeEdit} />
-              )
-            }
+                </label>
               
               <button className="icon icon-edit" onClick={() => {
                     setEditedTask(task.description)
@@ -44,6 +43,11 @@ const Task = ({ task, changeState, handleDelete, editTaskDescription }) => {
                 </button>
               <button className="icon icon-destroy" onClick={() => handleDelete(task.id)}></button>
             </div>
+
+            {/* enable editing mode */}
+            {editing && (
+              <input className="edit" value={editedTask} autoFocus onChange={handleEdit} onKeyDown={changeEdit} />
+            )}
           </li>
     );
 }
