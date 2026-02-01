@@ -9,12 +9,19 @@ function App() {
     { id: uuidv4(), description: 'New task', time: new Date(), complete: false },
   ]);
 
+  function changeState(id) {
+    const newTasks = [...tasks]
+    const task = newTasks.find(task => task.id === id)
+    task.complete = !task.complete
+    setTasks(newTasks)
+  }
+
   return (
     <section className="todoapp">
       <NewTaskForm />
 
       <section className="main">
-        <TaskList tasks={tasks} />
+        <TaskList tasks={tasks} changeState={changeState}/>
         <Footer />
       </section>
     </section>
