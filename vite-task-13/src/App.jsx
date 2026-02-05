@@ -70,8 +70,8 @@ function App() {
             editTaskDescription={editTaskDescription}
           />
         )}
-        <TasksFilter filter={filter} setFilter={setFilter} />
-        <Footer />
+
+        <Footer filter={filter} setFilter={setFilter} />
       </section>
     </section>
   );
