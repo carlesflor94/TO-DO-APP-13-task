@@ -1,9 +1,9 @@
 import TasksFilter from "./TasksFilter";
 
-const Footer = ({ filter, setFilter, clearCompletedTasks }) => {
+const Footer = ({ filter, setFilter, clearCompletedTasks, itemsLeft }) => {
   return (
     <footer className="footer">
-      <span className="todo-count">1 item left</span>
+      <span className="todo-count">{itemsLeft} item left</span>
       <TasksFilter filter={filter} setFilter={setFilter} />
       <button className="clear-completed" onClick={clearCompletedTasks}>
         Clear completed

@@ -74,6 +74,9 @@ function App() {
     );
   }
 
+  //counting items left
+  const itemsLeft = tasks.filter((task) => !task.completed).length;
+
   return (
     <section className="todoapp">
       <NewTaskForm addTask={fetchTasks} />
@@ -92,6 +95,7 @@ function App() {
           filter={filter}
           setFilter={setFilter}
           clearCompletedTasks={clearCompletedTasks}
+          itemsLeft={itemsLeft}
         />
       </section>
     </section>
