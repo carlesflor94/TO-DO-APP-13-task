@@ -57,6 +57,23 @@ function App() {
     setTasks(newTasks);
   }
 
+  //delete all completed tasks (clear all function)
+  function clearCompletedTasks() {
+    const completedTasks = task.filter((task) => task.completed);
+
+    Promise.all(
+      completedTasks
+        .map((task) =>
+          fetch(`http://localhost:8000/tasks/${task.id}`, {
+            method: "DELETE",
+          }),
+        )
+        .then(() => {
+          setTasks(tasks.filter((task) => !task.completed));
+        }),
+    );
+  }
+
   return (
     <section className="todoapp">
       <NewTaskForm addTask={fetchTasks} />
@@ -71,7 +88,11 @@ function App() {
           />
         )}
 
-        <Footer filter={filter} setFilter={setFilter} />
+        <Footer
+          filter={filter}
+          setFilter={setFilter}
+          clearCompletedTasks={clearCompletedTasks}
+        />
       </section>
     </section>
   );
