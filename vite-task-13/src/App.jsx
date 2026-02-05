@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskList from "./components/TaskList";
 import NewTaskForm from "./components/NewTaskForm";
 import Footer from "./components/Footer";
@@ -6,20 +6,23 @@ import { v4 as uuidv4 } from "uuid";
 
 function App() {
   //task data
-  const [tasks, setTasks] = useState([
-    {
-      id: uuidv4(),
-      description: "New task",
-      time: new Date(),
-      complete: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/tasks")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setTasks(data);
+      });
+  }, []);
 
   //change state to completed
   function changeState(id) {
     const newTasks = [...tasks];
     const task = newTasks.find((task) => task.id === id);
-    task.complete = !task.complete;
+    task.completed = !task.completed;
     setTasks(newTasks);
   }
 
@@ -33,7 +36,7 @@ function App() {
   function editTaskDescription(id, newDescription) {
     const newTasks = [...tasks];
     const task = newTasks.find((task) => task.id === id);
-    task.description = newDescription;
+    task.title = newDescription;
     setTasks(newTasks);
   }
 
@@ -42,12 +45,14 @@ function App() {
       <NewTaskForm />
 
       <section className="main">
-        <TaskList
-          tasks={tasks}
-          changeState={changeState}
-          handleDelete={handleDelete}
-          editTaskDescription={editTaskDescription}
-        />
+        {tasks && (
+          <TaskList
+            tasks={tasks}
+            changeState={changeState}
+            handleDelete={handleDelete}
+            editTaskDescription={editTaskDescription}
+          />
+        )}
         <Footer />
       </section>
     </section>
