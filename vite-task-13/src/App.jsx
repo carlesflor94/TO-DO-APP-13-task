@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import TaskList from "./components/TaskList";
 import NewTaskForm from "./components/NewTaskForm";
 import Footer from "./components/Footer";
+import TasksFilter from "./components/TasksFilter";
 import { v4 as uuidv4 } from "uuid";
 
 function App() {
   //task data & add new task
   const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState("all");
 
   function fetchTasks() {
     fetch("http://localhost:8000/tasks")
@@ -21,6 +23,17 @@ function App() {
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  //filters
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "all") {
+      return true;
+    } else if (filter === "active") {
+      return !task.completed;
+    } else {
+      return task.completed;
+    }
+  });
 
   //change state to completed
   function changeState(id) {
@@ -51,12 +64,13 @@ function App() {
       <section className="main">
         {tasks && (
           <TaskList
-            tasks={tasks}
+            tasks={filteredTasks}
             changeState={changeState}
             handleDelete={handleDelete}
             editTaskDescription={editTaskDescription}
           />
         )}
+        <TasksFilter filter={filter} setFilter={setFilter} />
         <Footer />
       </section>
     </section>
