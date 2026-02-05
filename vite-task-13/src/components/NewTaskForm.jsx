@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const NewTaskForm = () => {
+const NewTaskForm = ({ addTask }) => {
   const [userTask, setUserTask] = useState("");
 
   const handleSubmit = (e) => {
@@ -14,9 +14,10 @@ const NewTaskForm = () => {
     fetch("http://localhost:8000/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(task),
+      body: JSON.stringify(newTask),
     }).then(() => {
       setUserTask("");
+      addTask();
     });
   };
 

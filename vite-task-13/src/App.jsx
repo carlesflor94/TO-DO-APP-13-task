@@ -5,10 +5,10 @@ import Footer from "./components/Footer";
 import { v4 as uuidv4 } from "uuid";
 
 function App() {
-  //task data
+  //task data & add new task
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
+  function fetchTasks() {
     fetch("http://localhost:8000/tasks")
       .then((res) => {
         return res.json();
@@ -16,6 +16,10 @@ function App() {
       .then((data) => {
         setTasks(data);
       });
+  }
+
+  useEffect(() => {
+    fetchTasks();
   }, []);
 
   //change state to completed
@@ -42,7 +46,7 @@ function App() {
 
   return (
     <section className="todoapp">
-      <NewTaskForm />
+      <NewTaskForm addTask={fetchTasks} />
 
       <section className="main">
         {tasks && (
