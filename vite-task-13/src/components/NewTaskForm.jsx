@@ -9,6 +9,7 @@ const NewTaskForm = ({ addTask }) => {
     const newTask = {
       title: userTask,
       completed: false,
+      time: Date.now(),
     };
 
     fetch("http://localhost:8000/tasks", {

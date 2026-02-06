@@ -1,9 +1,17 @@
 import { useState } from "react";
-import { format } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 
 const Task = ({ task, changeState, handleDelete, editTaskDescription }) => {
   const [editing, setEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task.title);
+
+  let createdTime;
+
+  if (task.time) {
+    createdTime = formatDistanceToNow(task.time, { addSuffix: true });
+  } else {
+    createdTime = "";
+  }
 
   function handleTaskClick() {
     changeState(task.id);
@@ -36,6 +44,7 @@ const Task = ({ task, changeState, handleDelete, editTaskDescription }) => {
 
         <label>
           <span className="description">{task.title}</span>
+          <span className="created">created {createdTime}</span>
         </label>
 
         <button
