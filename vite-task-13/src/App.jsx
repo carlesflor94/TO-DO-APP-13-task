@@ -10,19 +10,16 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("all");
 
-  function fetchTasks() {
-    fetch("http://localhost:8000/tasks")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setTasks(data);
-      });
-  }
+  function addTask(title) {
+    const newTask = {
+      id: uuidv4(),
+      title,
+      completed: false,
+      time: Date.now(),
+    };
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+    setTasks([...tasks, newTask]);
+  }
 
   //filters
   const filteredTasks = tasks.filter((task) => {
@@ -79,7 +76,7 @@ function App() {
 
   return (
     <section className="todoapp">
-      <NewTaskForm addTask={fetchTasks} />
+      <NewTaskForm addTask={addTask} />
 
       <section className="main">
         {tasks && (
