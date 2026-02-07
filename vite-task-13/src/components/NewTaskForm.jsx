@@ -1,3 +1,4 @@
+import { addWithOptions } from "date-fns/fp";
 import { useState } from "react";
 
 const NewTaskForm = ({ addTask }) => {
@@ -5,21 +6,8 @@ const NewTaskForm = ({ addTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const newTask = {
-      title: userTask,
-      completed: false,
-      time: Date.now(),
-    };
-
-    fetch("http://localhost:8000/tasks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newTask),
-    }).then(() => {
-      setUserTask("");
-      addTask();
-    });
+    addTask(userTask);
+    setUserTask("");
   };
 
   return (
