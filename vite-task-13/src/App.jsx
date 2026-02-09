@@ -56,19 +56,7 @@ function App() {
 
   //delete all completed tasks (clear all function)
   function clearCompletedTasks() {
-    const completedTasks = task.filter((task) => task.completed);
-
-    Promise.all(
-      completedTasks
-        .map((task) =>
-          fetch(`http://localhost:8000/tasks/${task.id}`, {
-            method: "DELETE",
-          }),
-        )
-        .then(() => {
-          setTasks(tasks.filter((task) => !task.completed));
-        }),
-    );
+    setTasks(tasks.filter((task) => !task.completed));
   }
 
   //counting items left
