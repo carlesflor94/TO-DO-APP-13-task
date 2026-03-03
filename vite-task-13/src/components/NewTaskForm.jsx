@@ -1,5 +1,6 @@
 import { addWithOptions } from "date-fns/fp";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const NewTaskForm = ({ addTask }) => {
   const [userTask, setUserTask] = useState("");
@@ -24,6 +25,14 @@ const NewTaskForm = ({ addTask }) => {
       </form>
     </header>
   );
+};
+
+NewTaskForm.propTypes = {
+  addTask: PropTypes.func,
+};
+
+NewTaskForm.defaultProps = {
+  addTask: () => {},
 };
 
 export default NewTaskForm;

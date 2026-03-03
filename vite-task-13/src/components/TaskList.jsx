@@ -1,4 +1,5 @@
 import Task from "./Task";
+import PropTypes from "prop-types";
 
 const TaskList = ({
   tasks,
@@ -19,6 +20,17 @@ const TaskList = ({
       ))}
     </ul>
   );
+};
+
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(PropTypes.object),
+  changeState: PropTypes.func,
+  handleDelete: PropTypes.func,
+  editTaskDescription: PropTypes.func,
+};
+
+TaskList.defaultProps = {
+  tasks: [],
 };
 
 export default TaskList;

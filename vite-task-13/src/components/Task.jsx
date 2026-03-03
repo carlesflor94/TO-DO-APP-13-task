@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
+import PropTypes from "prop-types";
 
 const Task = ({ task, changeState, handleDelete, editTaskDescription }) => {
   const [editing, setEditing] = useState(false);
@@ -72,6 +73,27 @@ const Task = ({ task, changeState, handleDelete, editTaskDescription }) => {
       )}
     </li>
   );
+};
+
+Task.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    completed: PropTypes.bool,
+    time: PropTypes.number,
+  }),
+  changeState: PropTypes.func,
+  handleDelete: PropTypes.func,
+  editTaskDescription: PropTypes.func,
+};
+
+Task.defaultProps = {
+  task: {
+    id: "",
+    title: "",
+    completed: false,
+    time: null,
+  },
 };
 
 export default Task;
